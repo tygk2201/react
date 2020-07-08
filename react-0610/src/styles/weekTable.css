@@ -1,0 +1,222 @@
+.weekTable {
+    /* width: 1025px; */
+    position: relative;
+    font-size: 0;
+}
+div{
+    box-sizing: border-box;
+}
+
+/* 头部 */
+.weekHeader {
+    position: relative;
+    font-size: 0;
+    width: 1025px;
+    border-bottom: 1px solid #dedede;
+}
+
+
+
+.headerFirst {
+    /* float: left;
+    display: inline-block; */
+    width: 80px!important;
+    height: 36px;
+    background-color: rgba(224, 228, 233, 1);
+}
+
+:local(.headerBox) {
+    display: inline-block;
+    width: 135px;
+    border-left: 1px solid #ffffff;
+    background-color: rgba(224, 228, 233, 1);
+    height: 36px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 36px;
+}
+
+/* 表格主页 */
+.scrollBody {
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid #dedede;   
+    font-size: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 500px;
+    width: 1025px;
+}
+
+div::-webkit-scrollbar {
+    display: none;
+}
+
+.weekTableBody {
+    position: relative;
+    font-size: 0;
+}
+
+.oneDayTable {
+    /* width: 135px; */
+    position: relative;
+    float: left;
+}
+
+.oneDayMeeting {
+    position: absolute;
+    width: 135px;
+    top: 0;
+    left: 1px;
+    height: 100%;
+}
+
+.oneDayItem {
+    width: 135px;
+    border-left: 1px solid #dedede;
+    font-size: 0;
+}
+
+.ItemBox {
+    width: 100%;
+    height: 18px;
+    border-top: 1px solid #ebebeb;
+}
+
+.oneDayItem .ItemBox:first-child {
+    border-top: 0;
+}
+
+.hourBoder {
+    border-color: #dedede;
+}
+
+/* 会议 */
+.meetingItemBox {
+    overflow: hidden;
+    position: absolute;
+    left: 1px;
+    width: 134px;
+    font-size: 0;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+
+}
+
+.meetingRed {
+    background-color: rgba(254, 222, 224, 1);
+    color: #F65B67;
+}
+
+.meetingRed .leftSpan {
+    background-color: rgba(246, 91, 103, 1);
+}
+
+.meetingGreen {
+    background-color: rgba(222, 248, 234, 1);
+    color: #34BDA0;
+}
+
+.meetingGreen .leftSpan {
+    background-color: rgba(52, 189, 160, 1);
+}
+
+
+.leftSpan {
+    width: 100%;
+    height: 4px;
+    /* margin-bottom: 8px; */
+}
+
+.rightSpan {
+    margin-left: 8px;
+    /* width: 100%;      */
+    overflow: hidden;
+    cursor: pointer;
+    height:96%;
+}
+
+.rightSpan div {
+    margin-top: 8px;
+    font-size: 12px;
+    width: 122px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 左边时间线 */
+.leftTime {
+    /* float: left; */
+    width: 80px;
+    font-size: 0;
+}
+
+.leftHourItem {
+    border-top: 1px solid #dedede;
+    width: 80px;
+    height: 18px;
+    font-size: 12px;
+    text-align: center;
+    /* line-height: 18px; */
+    /* line-height: 100%; */
+}
+
+.leftHourItem:first-child {
+    border: 0;
+}
+
+.leftItem {
+
+    width: 80px;
+    height: 18px;
+}
+
+/* 时间线 */
+.todayTime {
+    position: absolute;
+    left: 75px;
+    height: 9px;
+    font-size: 0;
+    width: 954px;
+    margin-top:-4px;
+}
+
+.todayHeader {
+    display: inline-block;
+    width: 7px;
+    height: 9px;
+    background: url('../table/images/u966.png');
+}
+
+.timeLine {
+    margin-bottom: 4px;
+    display: inline-block;
+    width: 945px;
+    height: 1px;
+    background-color: #53AFE4;
+}
+
+/* 创建的会议 */
+.topMove{
+    z-index: 999;
+    position: absolute;
+    top:-19px;
+    height:38px;
+    width: 100%;
+    cursor: n-resize;
+    /* background-color: aquamarine; */
+}
+.meetingCreate{
+    overflow: visible;
+    background-color: #53AFE4;
+    color: #ffffff;
+}
+.bottomMove{
+    z-index: 999;
+    position: absolute;
+    bottom:-19px;
+    height:38px;
+    width: 100%;
+    cursor: n-resize;
+}

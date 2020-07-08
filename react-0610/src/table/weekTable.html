@@ -1,0 +1,493 @@
+<html>
+<style>
+    .weekTable {
+        position: relative;
+        font-size: 0;
+    }
+
+    /* 头部 */
+    .weekHeader {
+        position: relative;
+        font-size: 0;
+        width: 1025px;
+        border-bottom: 1px solid #dedede;
+    }
+
+    .headerFirst {
+        float: left;
+        display: inline-block;
+        width: 80px;
+        height: 36px;
+        background-color: rgba(224, 228, 233, 1);
+    }
+
+    .HeaderBox {
+        display: inline-block;
+        width: 134px;
+        border-left: 1px solid #ffffff;
+        background-color: rgba(224, 228, 233, 1);
+        height: 36px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 36px;
+    }
+
+    /* 表格主页 */
+    .scrollBody {
+        /* width: auto; */
+        border-bottom: 1px solid #dedede;
+        position: relative;
+        font-size: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 500px;
+        width: 1025px;
+    }
+
+    div::-webkit-scrollbar {
+        display: none;
+    }
+
+    .weekTableBody {
+        position: relative;
+        font-size: 0;
+    }
+
+    .oneDayTable {
+        /* width: 135px; */
+        position: relative;
+        float: left;
+    }
+
+    .oneDayMeeting {
+        position: absolute;
+        width: 134px;
+        top: 0;
+        left: 1px;
+        height: 100%;
+    }
+
+    .oneDayItem {
+        width: 134px;
+        border-left: 1px solid #dedede;
+        font-size: 0;
+    }
+
+    .ItemBox {
+        width: 100%;
+        height: 17px;
+        border-top: 1px solid #ebebeb;
+    }
+
+    .oneDayItem .ItemBox:first-child {
+        border-top: 0;
+    }
+
+    .hourBoder {
+        border-color: #dedede;
+    }
+
+    /* 会议 */
+    .meetingItemBox {
+        position: absolute;
+        left: 1px;
+        width: 132px;
+        font-size: 0;
+        border: 1px solid #ffffff;
+
+    }
+
+    .meetingRed {
+        background-color: rgba(254, 222, 224, 1);
+        color: #F65B67;
+    }
+
+    .meetingRed .leftSpan {
+        background-color: rgba(246, 91, 103, 1);
+    }
+
+    .meetingGreen {
+        background-color: rgba(222, 248, 234, 1);
+        color: #34BDA0;
+    }
+
+    .meetingGreen .leftSpan {
+        background-color: rgba(52, 189, 160, 1);
+    }
+
+    .leftSpan {
+        width: 100%;
+        height: 4px;
+        /* margin-bottom: 8px; */
+    }
+
+    .rightSpan {
+        margin-left: 8px;
+        /* width: 100%;      */
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .rightSpan div {
+        margin-top: 8px;
+        font-size: 12px;
+        width: 122px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 左边时间线 */
+    .leftTime {
+        float: left;
+        width: 80px;
+        font-size: 0;
+    }
+
+    .leftHourItem {
+        border-top: 1px solid #dedede;
+        width: 80px;
+        height: 17px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 17px;
+    }
+
+    .leftHourItem:first-child {
+        border: 0;
+    }
+
+    .leftItem {
+
+        width: 80px;
+        height: 18px;
+    }
+
+    /* 时间线 */
+    .todayTime {
+        position: absolute;
+        left: 75px;
+        height: 9px;
+        font-size: 0;
+        width: 954px;
+    }
+
+    .todayHeader {
+        display: inline-block;
+        width: 7px;
+        height: 9px;
+        background: url('images/u966.png');
+    }
+
+    .timeLine {
+        margin-bottom: 4px;
+        display: inline-block;
+        width: 945px;
+        height: 1px;
+        background-color: #53AFE4;
+    }
+</style>
+
+<body>
+    <!-- <div><button ></button></div> -->
+    <div class="weekTable">
+        <div class="weekHeader"></div>
+        <div class="scrollBody" id="scrollBody"></div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    var isThisWeek = 0;//是否本周  - 为前周 +为之后周
+    var isToday = -1; //是否为今天，
+    //自己获取今日时间，然后判断本周
+    //加载渲染第一步
+    var htmlHader = getdayHeader();
+    document.getElementsByClassName("weekHeader")[0].innerHTML = htmlHader;
+    //加载渲染第二步
+    var htmltable = getWeekTable();
+    var htmlTimeLeft = getLeftTime();
+    document.getElementsByClassName("scrollBody")[0].innerHTML = htmlTimeLeft + htmltable;
+
+    //第3步判断时间
+    var chooseDay = "2019-11-28 1:35:23";
+  
+    getDayName(chooseDay);
+   
+
+    //滚动到9点，72为一小时
+    document.getElementById("scrollBody").scrollTop += 648;
+
+
+    //头部渲染
+    function getdayHeader() {
+        var weekname=["一","二","三","四","五","六","七"]
+        var week = whichWeekDay();
+        var html = "<div class='headerFirst'></div>"
+        for (var i = 0; i < 7; i++) {
+            html += " <div class='HeaderBox'>" + week[i].dataName + "(星期" + weekname[i] + ")" + "</div>";
+        }
+        return html;
+    }
+    //渲染一天的时间表格
+    function domOneDayItem(row) {
+        var html = "<div class='oneDayItem'>";
+        for (var i = 0; i < 96; i++) {
+            if (i > 0 && (i) % 4 === 0) {
+                html += "<div class='ItemBox hourBoder' y=" + i + " x='" + row + "'></div>";
+            } else {
+                html += "<div class='ItemBox' y=" + i + " x='" + row + "'></div>";
+            }
+        }
+        html += "</div>";
+        return html;
+    }
+    //一周时间调渲染
+    function getWeekTable() {
+        var NewMeetingList = getNewMeetingList();
+        var html = "<div class='weekTableBody'>";
+        for (var i = 0; i < 7; i++) {
+            html += "<div class='oneDayTable'>";
+            html += domOneDayItem(i);
+            var list = NewMeetingList[i].meetingList;
+            if (list.length > 0) {
+                // html+= "<div class='oneDayMeeting'>";
+                for (var j = 0; j < list.length; j++) {
+                    html += domMeetingItem(list[j])
+
+                };
+                // html += "</div>";
+            }
+            html += "</div>";
+
+        }
+        html += "</div>";
+        return html;
+    }
+    //单条会议情况渲染
+    function domMeetingItem(data) {
+        var time = data.time;
+        time = parseInt(time.substring(0, 2)) * 4 + parseInt(time.substring(3) / 15);
+        var Top = 'top:' + time * 18 + 'px;';
+        var hid = data.timeLen / 15 * 18 - 3;
+        var height = "height:" + hid + 'px;';
+        var heightText = "height:" + (hid - 6) + 'px;';
+        var html = "", isred = "";
+        isred = data.red == true ? "meetingRed" : "meetingGreen";
+
+        html = "<div class='meetingItemBox " + isred + "' style='" + Top + height + "'>";
+        html += "<div class='leftSpan'></div>";
+        html += "<div class='rightSpan'style='" + heightText + "'><div>" + data.meetingName + "</div><div>" + data.time + "</div><div>罗晓</div></div>";
+        html += "</div>";
+        return html;
+    };
+    //会议数据重组
+    function getNewMeetingList() {
+        var meetingList = [{ meetingName: 'dhfj', timeLen: 30, time: "08:00", red: false, day: 0 },
+        { meetingName: 'dhfj', timeLen: 30, time: "12:00", red: true, day: 2 },
+        { meetingName: 'dhfj', timeLen: 120, time: "14:00", red: true, day: 2 },
+        { meetingName: 'xxxxx', timeLen: 60, time: "09:00", red: true, day: 4 },];
+        var newMeetings = [{ meetingList: [] }, { meetingList: [] }, { meetingList: [] }, { meetingList: [] }, { meetingList: [] }, { meetingList: [] }, { meetingList: [] }];
+        for (var i = 0; i < meetingList.length; i++) {
+            for (var j = 0; j < 7; j++) {
+                if (meetingList[i].day == j) {
+                    newMeetings[j].meetingList.push(
+                        meetingList[i]
+                    )
+                }
+
+            }
+        }
+        return newMeetings;
+    }
+    //获取作左边的时间表
+    function getLeftTime() {
+        var html = "<div class='leftTime'>";
+        for (var i = 0; i < 96; i++) {
+            if (i % 4 === 0) {
+                var time = i / 4 < 10 ? '0' + i / 4 + ':00' : i / 4 + ':00';
+                html += "<div class='leftHourItem' >" + time + "</div>";
+            } else {
+                html += "<div class='leftItem' ></div>";
+            }
+        }
+        html += "</div>";
+        return html;
+    }
+
+  
+
+    //判断是否为今天
+    function getDayName(d) {
+        var td = new Date();
+        td = new Date(td.getFullYear(), td.getMonth(), td.getDate());
+        var od = new Date(d);
+        od = new Date(od.getFullYear(), od.getMonth(), od.getDate());
+        var xc = od - td;
+        var result = "";
+        if (xc < 0) {
+            isToday = -1
+        } else if (xc == 0) {
+            isToday = 0;
+            getToday();
+        } else {
+            isToday = 1;
+        }
+    };
+    //判断今天周几
+    function whichWeekDay() {
+        var now = new Date();
+        var currentDay = now.getDay();
+        todayWeek = currentDay - 1;
+
+        // var new_Date = new Date()
+        var timesStamp = now.getTime();
+        var dates = [];
+        for (var i = 0; i < 7; i++) {
+            // dates.push(new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (day + 6) % 7)).toLocaleDateString().replace(/[年月]/g, '-').replace(/[日上下午]/g, ''));
+            resDate=new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (currentDay + 6) % 7));
+            let mouth=resDate.getMonth();
+            mouth=mouth<10?'0'+mouth:mouth;
+            let day=resDate.getDay();
+            day=day<10?'0'+day:day;
+            dates.push({
+                id:i,
+                date:resDate,
+                dataName:mouth+'-'+day
+            });
+        }
+        return dates;
+    }
+    //获取今天的时间线
+    function getToday() {
+        var now = new Date();
+        var hour = now.getHours();
+        var min = now.getMinutes();
+        var allMin = hour * 60 + min;
+        // var allMin=92;
+        var nowTime = 'top:' + (allMin * 72 / 60 - 5) + 'px;';
+        var html = "<div class='todayTime' style='" + nowTime + "'>";
+        html += "<div class='todayHeader'></div>";
+        html += "<div class='timeLine'></div>";
+        html += "</div>";
+        document.getElementsByClassName("scrollBody")[0].insertAdjacentHTML('beforeend', html);
+    };
+
+    //事件监听
+    var start = {};
+    var Element = document.getElementsByClassName('weekTableBody')[0];
+    addListen();
+    function addListen() {
+        // for(var i=0;i<7;i++){
+        //     Elements[i].addEventListener('mousedown',mousestart)
+
+        // }
+        Element.addEventListener('mousedown', mousestart)
+    }
+    //鼠标点击开始
+    function mousestart(e) {
+        console.log(e);
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            closeMouse();
+            for (var i = 0; i < e.path.length; i++) {
+                if (e.path[i].className.indexOf('meetingItemBox') != -1) {
+                    checkDetail(e.path[i]);
+                    break;
+                }
+            }
+            return;
+        }
+        var dom = e.path[0];
+        var x = parseInt(dom.getAttribute('x'));
+        var y = parseInt(dom.getAttribute('y'));
+        start = {
+            x: x,
+            y: y
+        }
+        Element.addEventListener('mousemove', move);
+        Element.addEventListener('mouseup', end);
+
+    }
+    //鼠标移动中
+    function move(e) {
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            alert('该时间段不可预定');
+            closeMouse();
+            return;
+        }
+        return false;
+
+    };
+    //鼠标离开
+    function end(e) {
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            alert('预定失败');
+            closeMouse();
+            return;
+        };
+        // if (isToday < 0) {
+        //     alert('今日之前不可预定！');
+        //     closeMouse();
+        //     return;
+        // }
+        if(isThisWeek<0){
+            alert('当前时间不可订');
+            closeMouse();
+            return;
+        }
+        if(x<isToday){
+                        alert('今日之前不可预定！');
+            closeMouse();
+            return;
+
+        }
+
+        var dom = e.path[0];
+        var x = parseInt(dom.getAttribute('x'));
+        var y = parseInt(dom.getAttribute('y'));
+        if (isToday == 0) {
+            var now = new Date();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            //因为当前时间所处的15分钟内页不可预定，所以向上取整
+            var nowY = hour * 4 + Math.ceil(min / 15);
+            if (start.y < nowY || y < nowY) {
+                alert('过去不可预定，且需当前时间后15分钟才可！');
+                closeMouse();
+                return;
+            }
+
+        }
+        var startY = y < start.y ? y : start.y;
+        var lenY = y < start.y ? -y + start.y : y - start.y;
+        var len = (lenY + 1) * 15;
+        var f = Math.floor(startY / 4);
+        var startTime = f < 10 ? '0' + f + ':' + startY % 4 * 15 : f + ':' + startY % 4 * 15;
+        var data = {
+            meetingName: "新的会议",
+            timeLen: len,
+            time: startTime,
+            red: false
+        }
+        domAddMeeting(data, start.x);
+        closeMouse();
+    };
+    //关闭鼠标事件
+    function closeMouse() {
+        Element.removeEventListener('mousemove', move);
+        Element.removeEventListener('mouseup', end);
+    };
+    //鼠标拖动渲染
+    function domAddMeeting(data, x) {
+        var getDomMeetinghtml = domMeetingItem(data);
+        document.getElementsByClassName('oneDayTable')[x].insertAdjacentHTML('beforeend', getDomMeetinghtml);
+
+    }
+    //已定会议的点击事件
+    function checkDetail(e) {
+        console.log('点击事件', e)
+    }
+
+
+
+</script>

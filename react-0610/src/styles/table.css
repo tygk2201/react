@@ -1,0 +1,296 @@
+.dayTable {
+    width: 1180px;
+    position: relative;
+    font-size: 0;
+}
+
+.titleLeft{
+    position: relative;
+    display: flex;
+}
+.meetingItemTool{
+    position: relative;
+    display: flex;
+}
+
+.tableRight {
+    float: left;
+    position: relative;
+    /* width: 1024px; */
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.timeHeader {
+    height: 36px;
+    width: 1024px;
+    /* overflow-x: scroll; */
+    overflow-y: hidden;
+    white-space: nowrap;
+    font-size: 0;
+    border-bottom: 1px solid #dedede;
+    /* width: 1728px; */
+}
+.timeHeaderBoxs{
+    width: 1078px;
+    position: relative;
+}
+
+div::-webkit-scrollbar {
+    display: none;
+}
+.showMeeting{
+    /* height:185px; */
+    overflow-y: scroll;
+    display: block;
+}
+.notShow{
+    display: none;
+}
+
+.timeHeaderBox {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 72px;
+    height: 36px;
+    font-size: 12px;
+    border-right: 1px solid #ffffff;
+    background-color: rgba(224, 228, 233, 1);
+    line-height: 36px;
+    text-align: center;
+
+}
+
+/* .timeHeaderBox:last-child{
+    border-right: 0;
+} */
+
+.roomTitle {
+    width: 1728px;
+    height: 36px;
+    background-color: rgba(242, 242, 242, 1);
+    border-bottom: 1px solid #dedede;
+}
+
+
+
+.timeBody {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+}
+.tableItem{
+    width: auto;
+    position: relative;
+}
+.bodyItem {
+    width: 1728px;
+    border-bottom: 1px solid #dedede;
+    font-size: 0;
+}
+
+.meetingTable {
+    width: 1024px;
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+    overflow: hidden;
+    /* overflow-x: scroll; */
+}
+
+.ItemBox {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 18px;
+    height: 36px;
+    border-right: 1px solid #ebebeb;
+    background-color: #ffffff;
+}
+
+/* .bodyItem .ItemBox:last-child{
+    border-right: 0;
+} */
+
+.hourBoder {
+    border-color: #dedede;
+}
+
+/* 会议 */
+.meetingItemBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    border: 1px solid #ffffff;
+    /* height: 34px; */
+}
+
+.meetingItemBox div {
+    /* display: inline-block; */
+    float: left;
+
+}
+
+.meetingRed {
+    background-color: rgba(254, 222, 224, 1);
+    color: #F65B67;
+}
+
+.meetingRed .leftSpan {
+    background-color: rgba(246, 91, 103, 1);
+}
+
+.meetingGreen {
+    background-color: rgba(222, 248, 234, 1);
+    color: #34BDA0;
+}
+
+.meetingGreen .leftSpan {
+    background-color: rgba(52, 189, 160, 1);
+}
+
+.leftSpan {
+    width: 4px;
+    height: 34px;
+    margin-right: 8px;
+}
+
+.rightSpan {
+    height: 34px;
+    line-height: 34px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+/* 左边标题 */
+.leftBox {
+    width: 156px;
+    height: 36px;
+}
+
+.timeHeaderLeft {
+    box-sizing: border-box;
+    background-color: rgba(224, 228, 233, 1);
+    border-right: 1px solid #ffffff;
+    font-size: 12px;
+    border-bottom: 1px solid #dedede;
+    line-height: 36px;
+    text-align: center;
+}
+
+.regionTool {
+    width: 1180px;
+    height: 36px;
+    background-color: rgba(242, 242, 242, 1);
+    border-bottom: 1px solid #dedede;
+    line-height: 36px;
+}
+
+.openButton {
+    float: left;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    cursor: pointer;
+}
+
+.openButton span {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.notOpenImg {
+    width: 7px;
+    height: 10px;
+    background: url('../table/images/u160.png');
+}
+
+.openImg {
+    width: 9px;
+    height: 7px;
+    background: url('../table/images/u154.png');
+}
+
+.regionName {
+    font-size: 12px;
+}
+
+.leftMeetingName {
+    box-sizing: border-box;
+    width: 156px;
+    height: 37px;
+    font-size: 12px;
+    line-height: 36px;
+    text-align: center;
+    border-right: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+
+.scrollBox {
+    position: absolute;
+    left: 156px;
+    top: 0;
+    height: 36px;
+    width: 1024px;
+    z-index: 999;
+}
+
+.scrollItem {
+    position: relative;
+    cursor: pointer;
+    width: 17px;
+    height: 36px;
+    background-color: rgba(224, 228, 233, 1);
+}
+
+.scrollItem img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px;
+    height: 8px;
+}
+
+.leftscroll {
+    border-right: 1px solid #ffffff;
+    float: left;
+
+}
+
+.rightscroll {
+    border-left: 1px solid #ffffff;
+    float: right
+}
+
+/* 今日时间线 */
+.todayTime {
+    position: absolute;
+    /* top: 31px; */
+    width: 9px;
+    height: 100%;
+    text-align: center;
+    /* margin-left: 151px; */
+    z-index: 99;
+
+}
+
+.todayHeader {
+    width: 9px;
+    height: 6px;
+    background: url('../table/images/u232.png');
+}
+
+.timeLine {
+    margin: 0 auto;
+    width: 1px;
+    height: 100%;
+    background-color: #53AFE4;
+}

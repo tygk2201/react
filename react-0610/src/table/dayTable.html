@@ -1,0 +1,619 @@
+<html>
+<style type="text/css">
+    .dayTable {
+        position: relative;
+        font-size: 0;
+    }
+
+    #titleLeft {
+        position: relative;
+        float: left;
+        width: 156px;
+    }
+
+
+    #tableRight {
+        float: left;
+        position: relative;
+        width: 1024px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .timeHeader {
+        white-space: nowrap;
+        font-size: 0;
+        border-bottom: 1px solid #dedede;
+        width: 1728px;
+    }
+
+    div::-webkit-scrollbar {
+        display: none;
+    }
+
+    .timeHeaderBox {
+        display: inline-block;
+        width: 71px;
+        height: 36px;
+        font-size: 12px;
+        border-right: 1px solid #ffffff;
+        background-color: rgba(224, 228, 233, 1);
+        line-height: 36px;
+        text-align: center;
+
+    }
+
+    /* .timeHeaderBox:last-child{
+        border-right: 0;
+    } */
+
+    .roomTitle {
+        width: 1728px;
+        height: 36px;
+        background-color: rgba(242, 242, 242, 1);
+        border-bottom: 1px solid #dedede;
+    }
+
+
+
+    .timeBody {
+        position: relative;
+        white-space: nowrap;
+        font-size: 0;
+    }
+
+    .bodyItem {
+        width: 1728px;
+        border-bottom: 1px solid #dedede;
+        font-size: 0;
+    }
+
+    .meetingTable {
+        position: relative;
+        white-space: nowrap;
+        font-size: 0;
+    }
+
+    .ItemBox {
+        display: inline-block;
+        width: 17px;
+        height: 36px;
+        border-right: 1px solid #ebebeb;
+        background-color: #ffffff;
+    }
+
+    /* .bodyItem .ItemBox:last-child{
+        border-right: 0;
+    } */
+
+    .hourBoder {
+        border-color: #dedede;
+    }
+
+    /* 会议 */
+    .meetingItemBox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        border: 1px solid #ffffff;
+        height: 34px;
+    }
+
+    .meetingItemBox div {
+        /* display: inline-block; */
+        float: left;
+
+    }
+
+    .meetingRed {
+        background-color: rgba(254, 222, 224, 1);
+        color: #F65B67;
+    }
+
+    .meetingRed .leftSpan {
+        background-color: rgba(246, 91, 103, 1);
+    }
+
+    .meetingGreen {
+        background-color: rgba(222, 248, 234, 1);
+        color: #34BDA0;
+    }
+
+    .meetingGreen .leftSpan {
+        background-color: rgba(52, 189, 160, 1);
+    }
+
+    .leftSpan {
+        width: 4px;
+        height: 34px;
+        margin-right: 8px;
+    }
+
+    .rightSpan {
+        height: 34px;
+        line-height: 34px;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    /* 左边标题 */
+    .leftBox {
+        width: 155px;
+        height: 36px;
+    }
+
+    .timeHeaderLeft {
+        background-color: rgba(224, 228, 233, 1);
+        /* border-right: 1px solid #ffffff; */
+        font-size: 12px;
+        border-bottom: 1px solid #dedede;
+        line-height: 36px;
+        text-align: center;
+    }
+
+    .regionTool {
+        width: 1180px;
+        height: 36px;
+        background-color: rgba(242, 242, 242, 1);
+        border-bottom: 1px solid #dedede;
+        line-height: 36px;
+    }
+
+    .openButton {
+        float: left;
+        width: 36px;
+        height: 36px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .openButton span {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .notOpenImg {
+        width: 7px;
+        height: 10px;
+        background: url('src/table/images/u160.png');
+    }
+
+    .openImg {
+        width: 9px;
+        height: 7px;
+        background: url('src/table/images/u154.png');
+    }
+
+    .regionName {
+        font-size: 12px;
+    }
+
+    .leftMeetingName {
+        width: 155px;
+        height: 36px;
+        font-size: 12px;
+        line-height: 36px;
+        text-align: center;
+        border-right: 1px solid #dedede;
+        border-bottom: 1px solid #dedede;
+    }
+
+    .scrollBox {
+        position: absolute;
+        left: 156px;
+        top: 0;
+        height: 36px;
+        width: 1024px;
+        z-index: 999;
+    }
+
+    .scrollItem {
+        position: relative;
+        cursor: pointer;
+        width: 17px;
+        height: 36px;
+        background-color: rgba(224, 228, 233, 1);
+    }
+
+    .scrollItem img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 5px;
+        height: 8px;
+    }
+
+    .leftscroll {
+        border-right: 1px solid #ffffff;
+        float: left;
+
+    }
+
+    .rightscroll {
+        border-left: 1px solid #ffffff;
+        float: right
+    }
+
+    /* 今日时间线 */
+    .todayTime {
+        position: absolute;
+        top: 31px;
+        width: 9px;
+        height: 100%;
+        text-align: center;
+
+    }
+
+    .todayHeader {
+        width: 9px;
+        height: 6px;
+        background: url('images/u232.png');
+    }
+
+    .timeLine {
+        margin: 0 auto;
+        width: 1px;
+        height: 100%;
+        background-color: #53AFE4;
+    }
+</style>
+
+<body>
+    <div class="dayTable">
+        <div id="titleLeft">
+            <div class="leftBox timeHeaderLeft" id="titleLeftdiv">会议室</div>
+        </div>
+        <div class="scrollBox">
+            <div class="scrollItem leftscroll">
+                <img src="http://localhost:3000/src/table/images/u207.png">
+            </div>
+            <div class="scrollItem rightscroll">
+                <img src="http://localhost:3000/src/table/images/u204.png">
+            </div>
+        </div>
+        <div id="tableRight"></div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    //加载渲染第一步
+    var htmlHader = getTimeHeader();
+    document.getElementById("tableRight").innerHTML = htmlHader;
+    //加载渲染第二步
+    var regionTool = getRegions();
+    document.getElementById("titleLeftdiv").insertAdjacentHTML('afterend', regionTool);
+
+    //加载渲染第三步   测试获取第一个区域
+    var meeting = getRoomMeeting("23213213", 1);
+    //第四步，默认左移到7点。没增加一点，添加72
+    document.getElementById("tableRight").scrollLeft += 486;
+
+    //第5步判断时间
+    var chooseDay = "2019-12-21 1:35:23";
+    var isToday = -1;
+    getDayName(chooseDay);
+
+    //判断是否为今天
+    function getDayName(d) {
+        var td = new Date();
+        td = new Date(td.getFullYear(), td.getMonth(), td.getDate());
+        var od = new Date(d);
+        od = new Date(od.getFullYear(), od.getMonth(), od.getDate());
+        var xc = od - td;
+        var result = "";
+        if (xc < 0) {
+            isToday = -1
+        } else if (xc == 0) {
+            isToday = 0;
+            getToday();
+        } else {
+            isToday = 1;
+        }
+    };
+    //获取今天的时间线
+    function getToday() {
+        var now = new Date();
+        var hour = now.getHours();
+        var min = now.getMinutes();
+        var allMin = hour * 60 + min;
+        // var allMin=120;
+        var nowTime = 'left:' + (allMin * 72 / 60 - 5) + 'px;';
+        var html = "<div class='todayTime' style='" + nowTime + "'>";
+        html += "<div class='todayHeader'></div>";
+        html += "<div class='timeLine'></div>";
+        html += "</div>";
+        document.getElementById("tableRight").insertAdjacentHTML('beforeend', html);
+    };
+
+    //时间条渲染
+    function getTimeHeader() {
+        var html = "<div class='timeHeader' id='timeHeader'>";
+        for (var i = 0; i < 24; i++) {
+            if (i < 10) {
+                html += "<div class='timeHeaderBox' id=" + i + ">" + '0' + i + ':00' + "</div>";
+            } else {
+                html += "<div class='timeHeaderBox' id=" + i + ">" + i + ':00' + "</div>";
+            }
+        }
+        html += "</div>"
+
+        return html;
+    };
+    //单条会议室一天时间线情况渲染
+    function getTimeBodyItem(row) {
+        var html = "<div class='bodyItem'>";
+        for (var i = 0; i < 96; i++) {
+            if (i > 0 && (i + 1) % 4 === 0) {
+                html += "<div class='ItemBox hourBoder' x=" + i + " y='" + row + "'></div>";
+            } else {
+                html += "<div class='ItemBox' x=" + i + " y='" + row + "'></div>";
+            }
+        }
+        html += "</div>";
+        return html;
+    };
+    //单条会议情况渲染
+    function domMeetingItem(data) {
+        if (data === null) {
+            return;
+        }
+        var time = data.time;
+        time = parseInt(time.substring(0, 2)) * 4 + parseInt(time.substring(3) / 15);
+        var marginLeft = 'left:' + time * 18 + 'px;';
+        var wid = data.timeLen / 15 * 18 - 3;
+        var width = "width:" + wid + 'px;';
+        var widthText = "width:" + (wid - 14) + 'px;';
+        var html = "";
+        if (!!data.red) {
+            html = "<div class='meetingItemBox meetingRed' style='" + marginLeft + width + "'>";
+            html += "<div class='leftSpan'></div>";
+            html += "<div class='rightSpan'style='" + widthText + "'><span>UCD例会</span></div>";
+            html += "</div>";
+
+        } else {
+            html = "<div class='meetingItemBox meetingGreen' style='" + marginLeft + width + "'>";
+            html += "<div class='leftSpan'></div>";
+            html += "<div class='rightSpan'style='" + widthText + "'><span>平台优4545435435435345435化讨论会</span></div>";
+            html += "</div>";
+        }
+        return html;
+    };
+    //区域条渲染
+    function getRegions() {
+        var data = [{
+            name: '苏州',
+            id: 23
+        }, {
+            name: '上海',
+            id: 23213213
+        }, {
+            name: '南京',
+            id: 55555
+        }];
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+            html += "<div class='regionTool' id='" + data[i].id + "' row='" + i + "'>";
+            html += "<div class='openButton' id='btn" + data[i].id + "'><span class='notOpenImg'/></div>";
+            html += "<div class='regionName'>" + data[i].name + "</div>";
+            html += "</div>";
+        };
+        return html;
+    };
+    //单个区域下的会议室查询渲染
+    function getRoomMeeting(id, row) {
+        var roomMeeting = [{
+            roomName: '上海视讯4F-会议室1',
+            roomId: 18,
+            meeting: [{
+                timeLen: 120,
+                time: "05:00",
+                red: true
+            }, {
+                timeLen: 90,
+                time: "08:00",
+                red: false
+            },
+            ]
+        }, {
+            roomName: '上海视讯4F-会议室2',
+            roomId: 18,
+            meeting: []
+        }, {
+            roomName: '上海视讯4F-会议室3',
+            roomId: 18,
+            meeting: [{
+                timeLen: 30,
+                time: "08:00",
+                red: false
+            }]
+        }, {
+            roomName: '上海视讯4F-会议室4',
+            roomId: 18,
+            meeting: []
+        }, {
+            roomName: '上海视讯4F-会议室5',
+            roomId: 18,
+            meeting: []
+        },]
+
+        var lefthtml = "";
+        var rightHmtl = "";
+
+        lefthtml += "<div id='region" + id + "'>"
+        for (var i = 0; i < roomMeeting.length; i++) {
+            lefthtml += "<div class='leftMeetingName'>" + roomMeeting[i].roomName + "</div>";
+            rightHmtl += "<div class='meetingTable'>";
+            rightHmtl += getTimeBodyItem(i);
+            var meeting = roomMeeting[i].meeting;
+            if (meeting.length > 0) {
+                for (var j = 0; j < meeting.length; j++) {
+                    rightHmtl += domMeetingItem(meeting[j]);
+                }
+            }
+            rightHmtl += "</div>";
+        }
+        lefthtml += "</div>";
+        document.getElementById('btn' + id).firstChild.classList.add('openImg');
+        document.getElementById(id).insertAdjacentHTML('afterend', lefthtml);
+        var marginTop = 'margin-top:' + (row + 1) * 37 + 'px;'
+        var meetinghtml = "<div class='timeBody' id='regionId" + id + "' style='" + marginTop + "'>";
+        meetinghtml += rightHmtl;
+        meetinghtml += "</div>";
+
+        document.getElementById("timeHeader").insertAdjacentHTML('afterend', meetinghtml);
+    };
+    //展开会议室
+    function showMeeting(id) {
+        var regionid = 'region' + id;
+        var meetingid = 'regionId' + id;
+        document.getElementById(regionid).style.display = 'block';
+        document.getElementById(meetingid).style.display = 'block';
+    };
+    //关闭会议室
+    function closeMeeting(id) {
+        var regionid = 'region' + id;
+        var meetingid = 'regionId' + id;
+        document.getElementById(regionid).style.display = 'none';
+        document.getElementById(meetingid).style.display = 'none';
+    }
+    //点击区域  后续改为jquery
+    document.getElementById("btn23213213").onclick = function () {
+        var id = 23213213;
+        var regionid = "region" + id;
+        var self = this;
+        if (document.getElementById(regionid) != null) {
+            if (document.getElementById(regionid).style.display == "none") {
+                showMeeting(id);
+                self.firstChild.classList.add('openImg');
+            } else {
+                closeMeeting(id);
+                self.firstChild.classList.remove('openImg');
+            }
+        } else {
+            console.log('发请求')
+        }
+    };
+    //移动滚动条
+    function roll(left) {
+        var parent = document.getElementById("tableRight");
+        if (left) {
+            parent.scrollLeft -= 72;
+        } else {
+            parent.scrollLeft += 72;
+        }
+    };
+    //左滑
+    document.getElementsByClassName("leftscroll")[0].onclick = function () {
+        roll(true);
+    };
+    //右滑
+    document.getElementsByClassName("rightscroll")[0].onclick = function () {
+        roll();
+    };
+
+    var start = {};
+    var Element = document.getElementsByClassName('timeBody')[0];
+    //鼠标点击
+    Element.addEventListener('mousedown', function (e) {
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            closeMouse();
+            for (var i = 0; i < e.path.length; i++) {
+                if (e.path[i].className.indexOf('meetingItemBox') != -1) {
+                    checkDetail(e.path[i]);
+                    break;
+                }
+            }
+            return;
+        }
+        var dom = e.path[0];
+        var x = parseInt(dom.getAttribute('x'));
+        var y = parseInt(dom.getAttribute('y'));
+        start = {
+            x: x,
+            y: y
+        }
+        Element.addEventListener('mousemove', move);
+        Element.addEventListener('mouseup', end);
+    });
+    //鼠标移动中
+    function move(e) {
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            alert('该时间段不可预定');
+            closeMouse();
+            return;
+        }
+        return false;
+
+    };
+    //鼠标离开
+    function end(e) {
+        if (e.srcElement.className.indexOf('ItemBox') == -1) {
+            alert('预定失败');
+            closeMouse();
+            return;
+        };
+        if (isToday < 0) {
+            alert('今日之前不可预定！');
+            closeMouse();
+            return;
+        }
+
+        var dom = e.path[0];
+        var x = parseInt(dom.getAttribute('x'));
+        if (isToday == 0) {
+            var now = new Date();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            //因为当前时间所处的15分钟内页不可预定，所以向上取整
+            var nowX = hour * 4 + Math.ceil(min / 15);
+            if (start.x < nowX || x < nowX) {
+                alert('过去不可预定，且需当前时间后15分钟才可！');
+                closeMouse();
+                return;
+            }
+
+        }
+        var len = (x - start.x + 1) * 15;
+        var f = Math.floor(start.x / 4);
+        var startTime = f < 10 ? '0' + f + ':' + start.x % 4 * 15 : f + ':' + start.x % 4 * 15;
+        if (x < start.x) {
+            f = Math.floor(x / 4);
+            len = (-x + start.x + 1) * 15;
+            startTime = f < 10 ? '0' + f + ':' + x % 4 * 15 : f + ':' + x % 4 * 15;
+        }
+        var data = {
+            timeLen: len,
+            time: startTime,
+            red: false
+        }
+        domAddMeeting(data, start.y);
+        closeMouse();
+    };
+    //关闭鼠标事件
+    function closeMouse() {
+        Element.removeEventListener('mousemove', move);
+        Element.removeEventListener('mouseup', end);
+    };
+    //鼠标拖动渲染
+    function domAddMeeting(data, y) {
+        var getDomMeetinghtml = domMeetingItem(data);
+        document.getElementsByClassName('meetingTable')[y].insertAdjacentHTML('beforeend', getDomMeetinghtml);
+
+    }
+    //已定会议的点击事件
+    function checkDetail(e) {
+        console.log('点击事件', e)
+    }
+
+
+
+</script>
